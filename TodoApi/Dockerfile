@@ -1,3 +1,8 @@
+# Run locally: docker run -p XXXX:80 yyyyyyyyyy
+# XXXX is the host port, yyyyyyyyyy is the name of built image
+
+# Build an docker image: docker buildx build -t learn-docker-backend .
+
 # Use the official .NET SDK image as the build image
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app

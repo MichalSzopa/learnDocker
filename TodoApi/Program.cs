@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options => 
 {
-    options.AddPolicy("Allow8080",
+    options.AddPolicy("Allow8080", // port of the frontend app
         builder => 
         {
             builder.WithOrigins("http://localhost:8080")

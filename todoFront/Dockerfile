@@ -1,3 +1,8 @@
+# Run locally: docker run -p XXXX:80 yyyyyyyyyy
+# XXXX is the host port, yyyyyyyyyy is the name of built image
+
+# Build an docker image: docker buildx build -t learn-docker-frontend .
+
 # Use the official Node.js image as the base image
 FROM node:14
 
