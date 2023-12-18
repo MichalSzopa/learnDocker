@@ -1,0 +1,32 @@
+kategoria - kategoria zadania - z odpowiednim enumem
+-id int pk autoincrement
+-kod varchar not null
+
+pilność - pilność zadania - z odpowiednim enumem
+-id int pk autoincrement
+-kod varchar not null
+
+powtarzanie - jak często powtarzamy zadanie - z odpowiednim enumem
+-id int pk autoincrement
+-kod varchar not null
+
+użytkownik - encja dla każdego użytkownika aplikacji
+-id int pk autoincrement
+-login varchar not null
+-nazwa varchar not null
+-hasło varchar not null
+-mail - varchar not null
+
+zadanie - encja reprezentująca zadania i wydarzenia
+-id int pk autoincrement
+-id uzytkownika fk int not null
+-czy powtarzające się bool not null
+-data utworzenia datetime not null
+-data wykonania/rozpoczęcia wydarzenia datetime not null
+-godzina (opcjonalnie) time
+-tytuł varchar not null
+-opis (opcjonalnie) varchar
+-id kategorii (opcjonalne) fk
+-id powtarzania (opcjonalne) fk
+-interwał powtarzania (opcjonalne)
+-id pilności (opcjonalne) fk

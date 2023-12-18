@@ -1,0 +1,15 @@
+Aplikacja do zarządzania zadaniami i wydarzeniami
+Użytkownik może dodawać zadania
+Zadania można przekładać, edytować ich treść
+Zadanie zawiera kategorię, czas wykonania (deadline) lub datę rozpoczęcia wydarzenia, tytuł oraz opis, przy tworzeniu pole "czy dodać godzinę"
+Przełożenie zadania jest zapisywane, historia zmian widoczna dla użytkownika
+Zadania które nie są zrealizowane, a termin się zbliża oznaczone
+Zadania niezrealizowane, po terminie, również oznaczone
+Możliwość usuwania zadań- usunięte zadanie trafia do kosza, i stamtąd może zostać usunięte permanentnie
+Po zalogowaniu użytkownik dostaje powiadomienia o nadchodzących zadaniach, czas wyprzedzenia dla zadania dostępny do konfiguracji
+Możliwość wyświetlenia kalendarza z zadaniami
+Język polski oraz angielski
+Użytkownik niezalogowany może utworzyć konto, lub spróbować odzyskać hasło podając email
+Reszta akcji dostępna dla głównego użytkownika
+
+Stack technologiczny: backend w .net 7 z entity framework, baza danych docelowo postgresql, frontend jako aplikacja webowa w vue.js
