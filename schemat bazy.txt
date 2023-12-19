@@ -1,14 +1,14 @@
-kategoria - kategoria zadania - z odpowiednim enumem
--id int pk autoincrement
--kod varchar not null
+kategoria - enum plus zdefiniowane przez użytkownika kategorie
 
-pilność - pilność zadania - z odpowiednim enumem
--id int pk autoincrement
--kod varchar not null
+pilność - pilność zadania - tylko enum
 
-powtarzanie - jak często powtarzamy zadanie - z odpowiednim enumem
--id int pk autoincrement
--kod varchar not null
+powtarzanie - tylko enum
+
+projekt
+-id
+-tytuł
+-opis
+-kategoria
 
 użytkownik - encja dla każdego użytkownika aplikacji
 -id int pk autoincrement
@@ -27,6 +27,8 @@ zadanie - encja reprezentująca zadania i wydarzenia
 -tytuł varchar not null
 -opis (opcjonalnie) varchar
 -id kategorii (opcjonalne) fk
--id powtarzania (opcjonalne) fk
+-id powtarzania wg enuma
 -interwał powtarzania (opcjonalne)
--id pilności (opcjonalne) fk
+-id pilności (opcjonalne)
+-id rodzica (opcjonalne) fk
+-id projektu (opcjonalne) fk

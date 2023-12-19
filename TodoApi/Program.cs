@@ -1,3 +1,5 @@
+using TodoApi.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +19,8 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
+
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 var app = builder.Build();
 
