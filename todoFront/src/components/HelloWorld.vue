@@ -1,13 +1,10 @@
 <template>
   <div class="hello">
+    <img alt="Vue logo" src="../assets/logo.png">
     <h1>{{ jajko }}</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
+      <router-link to="/login"> Login </router-link>
     </p>
-    <h3>Installed CLI Plugins</h3>
-    <h3>Essential Links</h3>
-    <h3>Ecosystem</h3>
   </div>
 </template>
 
@@ -26,7 +23,7 @@ export default {
   methods: {
     async fetchForecast() {
       try {
-        const response = await fetch('http://localhost:3000/WeatherForecast');
+        const response = await fetch('http://localhost:5013/WeatherForecast');
         const data = await response.json();
         this.jajko = data[0].date;
       }

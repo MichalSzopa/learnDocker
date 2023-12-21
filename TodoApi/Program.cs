@@ -51,7 +51,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors("Allow8080");
+    app.UseCors(options => options
+        .WithOrigins(new[] {"http://localhost:8080"})
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials()
+    );
 }
 
 app.UseHttpsRedirection();

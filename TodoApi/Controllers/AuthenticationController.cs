@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace TodoApi.Controllers;
 
 [ApiController]
-[Route("api/auth")]
+[Route("[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -67,7 +67,7 @@ public class AuthController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("/api/login-test")]
+    [HttpGet("login-test")]
     public ActionResult<object> LoginTest()
     {
         // Konwertuje automatycznie na JSON

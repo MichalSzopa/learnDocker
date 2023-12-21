@@ -30,7 +30,7 @@ public class WeatherForecastController : ControllerBase
         .ToArray();
     }
 
-    [HttpGet("OneForecast")]
+    [HttpGet("one-forecast")]
     public WeatherForecast GetOneForecast()
     {
         return new WeatherForecast
