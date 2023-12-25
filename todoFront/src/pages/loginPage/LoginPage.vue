@@ -15,7 +15,6 @@
             </div>
         </div>
         <button @click="loginTest"> Login test</button>
-        <span v-if="this.testResult">{{ this.testResult }}</span>
     </div>
 </template>
 
@@ -28,31 +27,24 @@ export default {
         return {
             username: '',
             password: '',
-            testResult: null,
         }
     },
     methods: {
         async login() {
             try {
-            const response = await axios.post('http://localhost:5013/auth/login', {
+            await axios.post('http://localhost:5013/auth/login', {
               username: this.username,
               password: this.password
-            });
-
-            console.log(response.data);
-            this.$router.push('/user-home-page');
+            },
+            {withCredentials: true});
+            this.$router.push('/categories');
           } catch (error) {
             console.error('Login failed:', error.response ? error.response.data : error.message);
           }
         },
         async loginTest() {
             try {
-                console.log('a');
-                const response = await axios.get('http://localhost:5013/auth/login-test', { withCredentials: true });
-                console.log('b');
-                console.log(response);
-                const data = response.data;
-                console.log(data);
+                await axios.get('http://localhost:5013/login-test', {withCredentials: true});
             }
             catch
             {
