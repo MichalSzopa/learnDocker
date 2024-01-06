@@ -6,11 +6,11 @@ public class Category
     
     public string Description { get; set; } // Not null varchar
     
-    public int Color; // Defined somewhere, todo for own user categories
+    public int Color { get; set; } // Defined somewhere, todo for own user categories
 
-    public int UserId; 
+    public int UserId { get; set; }
 
-    public bool IsPredefined;
+    public bool IsPredefined { get; set; }
 
     public virtual User User { get; set; }
 }

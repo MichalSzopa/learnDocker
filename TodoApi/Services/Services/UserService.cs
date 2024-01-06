@@ -33,7 +33,7 @@ public class UserService : IUserService
         using (var scope = _scopeFactory.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                var user = await db.Users.Where(u => u.Name == username && u.Password == password).FirstOrDefaultAsync();
+                var user = await db.Users.Where(u => u.Login == username && u.Password == password).FirstOrDefaultAsync();
                 if (user == null)
                 {
                     return null;
@@ -56,6 +56,6 @@ public class UserService : IUserService
     public async Task<User> ValidateUserAsync(string username, string password)
     {
         using var context = new ApplicationDbContext();
-        return await context.Users.Where(u => u.Name == "SYSTEM").FirstOrDefaultAsync(); // todo auth
+        return await context.Users.Where(u => u.Name == "SYSTEM").FirstOrDefaultAsync(); // TODO auth
     }
 }

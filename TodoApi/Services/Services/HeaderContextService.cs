@@ -19,9 +19,9 @@ public class HeaderContextService : IHeaderContextService
             return GetHttpContext()!.User;
         }
 
-        public Guid GetUserId()
+        public int GetUserId()
         {
             var claim = GetUser().FindFirstValue(ClaimTypes.NameIdentifier);
-            return new Guid(claim);
+            return int.Parse(claim);
         }
     }

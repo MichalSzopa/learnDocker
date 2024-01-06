@@ -25,13 +25,15 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IHeaderContextService, HeaderContextService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<UnitOfWork>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
 options =>
 {
-    // Sposob aby zwrocic kod 401 (Unauthorized) zamiast 404 (NotFound)
     options.Events.OnRedirectToLogin = context =>
     {
         context.Response.Headers["Location"] =

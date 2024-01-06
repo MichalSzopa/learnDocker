@@ -27,7 +27,7 @@ export default {
             }
             catch
             {
-                console.log('jajco');
+                console.log('not logged in');
                 this.testResult='not logged in';
             }
         }
