@@ -3,25 +3,26 @@
         :items="categories"
         item-title="description"
         item-value="id">
-
     </v-list>
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'UserHomePage',
     data() {
         return {
-            categories: [],
         }
     },
+    computed: {
+    ...mapGetters('categories', ['getData']),
+    },
     methods: {
-        
+        ...mapActions('categories', ['fetchData']),
     },
     async created() {
-        this.categories = (await axios.get('http://localhost:5013/categories', { withCredentials: true })).data;
+        this.fetchData();
     }
 }
 </script>

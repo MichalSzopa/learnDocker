@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'LoginPage',
@@ -29,27 +29,28 @@ export default {
             password: '',
         }
     },
+    computed: {
+        ...mapGetters('login', ['isLoggedIn']),
+    },
     methods: {
+        ...mapActions('login', ['logIn']),
         async login() {
             try {
-            await axios.post('http://localhost:5013/auth/login', {
-              username: this.username,
-              password: this.password
-            },
-            {withCredentials: true});
-            this.$router.push('/categories');
-          } catch (error) {
-            console.error('Login failed:', error.response ? error.response.data : error.message);
-          }
+                const data = {
+                    username: this.username,
+                    password: this.password
+                };
+                await this.logIn(data);
+                if (this.isLoggedIn) {
+                  this.$router.push('/categories');
+                }
+            }
+            catch {
+                console.log('cosik nieteges');
+            }
         },
         async loginTest() {
-            try {
-                await axios.get('http://localhost:5013/login-test', {withCredentials: true});
-            }
-            catch
-            {
-                console.log('not logged in');
-            }
+            console.log(this.isLoggedIn);
         }
     }
 };
