@@ -3,6 +3,7 @@ import LoginPage from "./pages/loginPage/LoginPage.vue"
 import HelloWorld from "./components/HelloWorld.vue"
 import UserHomePage from "./pages/userHomePage/UserHomePage.vue"
 import CategoriesPage from "./pages/categoriesPage/CategoriesPage.vue"
+import AddCategoryPage from "./pages/categoriesPage/AddCategory.vue"
 
 const routes = [
     {
@@ -24,6 +25,11 @@ const routes = [
         name: "CategoriesPage",
         component: CategoriesPage,
         path: "/categories",
+    },
+    {
+        name: "AddCategoryPage",
+        component: AddCategoryPage,
+        path: "/add-category",
     },
 ]
 

@@ -23,10 +23,11 @@ public class CategoriesController : ControllerBase
 
     [Authorize]
     [HttpGet]
-    public async Task<Category[]> Get()
+    public async Task<ActionResult<IEnumerable<Category>>> Get()
     {
         var userId = headerContextService.GetUserId();
-        return await categoryService.GetCategoriesForUser(userId);
+        var categories = await categoryService.GetCategoriesForUser(userId);
+        return Ok(categories);
     }
 
     [Authorize]

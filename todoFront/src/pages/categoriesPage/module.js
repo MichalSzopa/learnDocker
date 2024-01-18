@@ -1,37 +1,28 @@
-import categoriesService from './service';
+import categoriesService from "./service";
 
 export default {
-    namespaced: true,
-    state: {
-      data: null,
-      loading: false,
+  namespaced: true,
+  state: {
+    data: null,
+  },
+  mutations: {
+    setData(state, newData) {
+      state.data = newData;
     },
-    mutations: {
-      setData(state, newData) {
-        state.data = newData;
-      },
-      setLoading(state, isLoading) {
-        state.loading = isLoading;
-      },
+  },
+  actions: {
+    async fetchData({ commit }) {
+      const data = await categoriesService.getCategories();
+      commit("setData", data);
     },
-    actions: {
-      fetchData({ commit }) {
-        commit('setLoading', true);
-  
-        return categoriesService.getCategories()
-          .then(response => {
-            commit('setData', response.data);
-            commit('setLoading', false);
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-            commit('setLoading', false);
-          });
-      },
+    async createCategory({ commit }, model) {
+      console.log("model in module:", model);
+      await categoriesService.createCategory(model);
+      const data = await categoriesService.getCategories();
+      commit("setData", data);
     },
-    getters: {
-      getData: state => state.data,
-      isLoading: state => state.loading,
-    },
-  };
-  
+  },
+  getters: {
+    getData: (state) => state.data,
+  },
+};

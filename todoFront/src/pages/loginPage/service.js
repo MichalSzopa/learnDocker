@@ -7,6 +7,8 @@ export default {
 
         await fetch('http://localhost:5013/auth/login', {
             method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
               },
