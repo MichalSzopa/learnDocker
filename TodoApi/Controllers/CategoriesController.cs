@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using TodoApi.Database;
 using TodoApi.Database.Models;
 
 namespace TodoApi.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CategoriesController : ControllerBase
@@ -21,7 +19,6 @@ public class CategoriesController : ControllerBase
         this.headerContextService = headerContextService;
     }
 
-    [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Category>>> Get()
     {
@@ -30,14 +27,12 @@ public class CategoriesController : ControllerBase
         return Ok(categories);
     }
 
-    [Authorize]
     [HttpGet("{id}")]
     public async Task<Category> GetById(int id)
     {
         return await categoryService.GetCategoryById(id);
     }
 
-    [Authorize]
     [HttpPost("create")]
     public async Task<IActionResult> CreateCategory(CreateCategoryModel model)
     {
@@ -47,7 +42,6 @@ public class CategoriesController : ControllerBase
         return Ok();
     }
 
-    [Authorize]
     [HttpPost("edit")]
     public async Task<IActionResult> EditCategory(EditCategoryModel model)
     {
@@ -56,7 +50,6 @@ public class CategoriesController : ControllerBase
         return Ok();
     }
 
-    [Authorize]
     [HttpDelete]
     public async Task<IActionResult> DeleteCategory(int categoryId)
     {
