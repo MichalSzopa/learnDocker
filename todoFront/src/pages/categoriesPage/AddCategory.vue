@@ -10,7 +10,6 @@
     </v-sheet>
 </template>
 
-
 <script>
 import { mapActions } from 'vuex'
 
