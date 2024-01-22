@@ -9,6 +9,10 @@ describe("Categories tests", async () => {
     description: "category created by supertest",
     color: 1,
   };
+  const editedCategory = {
+    description: "editedDescription",
+    color: 2,
+  };
   let specificCategoryReceivedFromBackend = null;
 
   it("Should has status code 401", async () => {
@@ -87,6 +91,33 @@ describe("Categories tests", async () => {
     assert.ok(
       response.body.description === categoryToCreate.description &&
         response.body.color === categoryToCreate.color
+    );
+  });
+
+  it("Should edit category added previously", async () => {
+    const newCategory = {
+      id: specificCategoryReceivedFromBackend.id,
+      description: editedCategory.description,
+      color: editedCategory.color,
+    };
+
+    await supertest(apiUrl)
+      .post('Categories/edit')
+      .set('Cookie', authCookie)
+      .send(newCategory)
+      .expect(200);
+  })
+
+  it("Should get specific category, edited previously", async () => {
+    const response = await supertest(apiUrl)
+      .get(`Categories/${specificCategoryReceivedFromBackend.id.toString()}`)
+      .set("Cookie", authCookie)
+      .expect(200);
+
+    assert.ok(response.body !== null);
+    assert.ok(
+      response.body.description === editedCategory.description &&
+        response.body.color === editedCategory.color
     );
   });
 
