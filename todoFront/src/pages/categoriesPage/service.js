@@ -21,7 +21,6 @@ export default {
     return categories;
   },
   async createCategory(model) {
-    console.log('model in service:', model);
     const data = {
       description: model.description,
       color: model.color
@@ -35,6 +34,21 @@ export default {
       },
       body: JSON.stringify(data),
     });
-    console.log('add category service 2');
+  },
+  async editCategory(model) {
+    const data = {
+      id: model.id,
+      description: model.description,
+      color: model.color
+    };
+    await fetch("http://localhost:5013/categories/edit", {
+      method: "POST",
+      credentials: "include",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
   },
 };

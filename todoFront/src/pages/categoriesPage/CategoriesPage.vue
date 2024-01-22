@@ -1,11 +1,24 @@
 <template>
     <v-btn variant="outlined" @click="addCategory"> Add category</v-btn>
-    <v-list :items="categories" item-title="description" item-value="id">
+
+    <v-list>
+      <v-list-item
+        v-for="(item, index) in categories"
+        :key="index"
+        :value="item"
+      >
+        <span>{{ item.description }}</span>
+        <template v-slot:append>
+          <v-btn :icon="mdi-edit" @click="editCategory(item)"></v-btn>
+        </template>
+
+        <v-list-item-title v-text="item.text"></v-list-item-title>
+      </v-list-item>
     </v-list>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations} from 'vuex';
 
 export default {
     name: 'CategoriesPage',
@@ -15,17 +28,24 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('categories', ['getData']),
+        ...mapGetters('categories', ['getCategories']),
     },
     methods: {
-        ...mapActions('categories', ['fetchData']),
+        ...mapActions('categories', ['fetchCategories']),
+        ...mapMutations('categories', ['setEditedCategory']),
+
         async addCategory() {
             this.$router.push('/add-category');
+        },
+        async editCategory(category) {
+            this.setEditedCategory(category);
+            console.log('categoriesPage', category);
+            this.$router.push('/edit-category');
         }
     },
     async created() {
-        await this.fetchData();
-        this.categories = this.getData;
+        await this.fetchCategories();
+        this.categories = this.getCategories;
     },
 
 }

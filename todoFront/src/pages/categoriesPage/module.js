@@ -3,26 +3,35 @@ import categoriesService from "./service";
 export default {
   namespaced: true,
   state: {
-    data: null,
+    categories: null,
+    editedCategory: null
   },
   mutations: {
-    setData(state, newData) {
-      state.data = newData;
+    setCategories(state, newCategories) {
+      state.categories = newCategories;
+    },
+    setEditedCategory(state, newEditedCategory) {
+      state.editedCategory = newEditedCategory;
     },
   },
   actions: {
-    async fetchData({ commit }) {
+    async fetchCategories({ commit }) {
       const data = await categoriesService.getCategories();
-      commit("setData", data);
+      commit("setCategories", data);
     },
     async createCategory({ commit }, model) {
-      console.log("model in module:", model);
       await categoriesService.createCategory(model);
       const data = await categoriesService.getCategories();
-      commit("setData", data);
+      commit("setCategories", data);
+    },
+    async editCategory({ commit }, model) {
+      await categoriesService.editCategory(model);
+      const data = await categoriesService.getCategories();
+      commit("setCategories", data);
     },
   },
   getters: {
-    getData: (state) => state.data,
+    getCategories: (state) => state.categories,
+    getEditedCategory: (state) => state.editedCategory,
   },
 };
