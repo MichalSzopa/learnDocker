@@ -15,4 +15,6 @@ public class Project
     public virtual Category Category { get; set; } // Project category
 
     public virtual User User { get; set; }
+
+    public virtual ICollection<TodoTask> TodoTasks { get; set; }
 }

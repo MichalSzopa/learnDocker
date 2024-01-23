@@ -24,4 +24,6 @@ public class TodoTask
     public virtual Category Category { get; set; } // Represents the Category entity
     public virtual TodoTask ParentTask { get; set; } // Represents the Parent Task entity
     public virtual Project Project { get; set; } // Represents the Project entity
+
+    public virtual ICollection<TodoTask> ChildTasks { get; set; }
 }
