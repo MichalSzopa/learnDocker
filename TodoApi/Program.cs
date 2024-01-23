@@ -26,8 +26,10 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IHeaderContextService, HeaderContextService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<UnitOfWork>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddHttpContextAccessor();
 
 

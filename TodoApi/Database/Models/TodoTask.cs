@@ -2,28 +2,43 @@ namespace TodoApi.Database.Models;
 
 public class TodoTask
 {
-    public int Id { get; set; } // Primary key, auto-incremented
-    public int UserId { get; set; } // Foreign key to User entity, not null
-    public bool IsRecurring { get; set; } // Indicates if the task is recurring, not null
-    public DateTime CreationDate { get; set; } // Date and time of task creation, not null
-    public DateTime EventDate { get; set; } // Date and time of task execution/start, not null
-    public TimeSpan? Time { get; set; } // Optional time
-    public string Title { get; set; } // Title of the task, not null
-    public string Description { get; set; } // Optional description
+    public int Id { get; set; }
 
-    // Foreign key properties
-    public int? CategoryId { get; set; } // Foreign key to Category entity
-    public TaskRepetition? Repetition { get; set; } // Foreign key to Repetition entity
-    public int RepetitionInterval { get; set; } // Optional repetition interval
-    public TaskPriority? Priority { get; set; } // Foreign key to Priority entity
-    public int? ParentId { get; set; } // Foreign key to Parent Task entity
-    public int? ProjectId { get; set; } // Foreign key to Project entity
+    public int UserId { get; set; }
 
-    // Virtual properties for Entity Framework relationships
-    public virtual User User { get; set; } // Represents the User entity
-    public virtual Category Category { get; set; } // Represents the Category entity
-    public virtual TodoTask ParentTask { get; set; } // Represents the Parent Task entity
-    public virtual Project Project { get; set; } // Represents the Project entity
+    public bool IsRecurring { get; set; }
 
+    public DateTime CreationDate { get; set; }
+
+    public DateTime EventDate { get; set; }
+
+    public TimeSpan? Time { get; set; }
+
+    public string Title { get; set; }
+
+    public string Description { get; set; }
+    
+    public int? CategoryId { get; set; }
+    
+    public TaskRepetition? Repetition { get; set; }
+    
+    public TaskPriority? Priority { get; set; }
+
+    public TaskStatus Status { get; set; }
+
+    public int Version { get; set; }
+    
+    public int? ParentId { get; set; }
+    
+    public int? ProjectId { get; set; }
+    
+    public virtual User User { get; set; }
+    
+    public virtual Category Category { get; set; }
+    
+    public virtual TodoTask ParentTask { get; set; }
+
+    public virtual Project Project { get; set; }
+    
     public virtual ICollection<TodoTask> ChildTasks { get; set; }
 }

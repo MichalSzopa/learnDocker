@@ -2,11 +2,11 @@ namespace TodoApi.Database.Models;
 
 public class Category
 {
-    public int Id { get; set; } // Primary key, auto-incremented
+    public int Id { get; set; }
 
-    public string Description { get; set; } // Not null varchar
+    public string Description { get; set; }
 
-    public int Color { get; set; } // Defined somewhere, todo for own user categories
+    public int Color { get; set; }
 
     public int UserId { get; set; }
 

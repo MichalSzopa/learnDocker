@@ -2,17 +2,17 @@ namespace TodoApi.Database.Models;
 
 public class Project
 {
-    public int Id { get; set; } // Project Id
+    public int Id { get; set; }
     
-    public string Title { get; set; } // Project title
+    public string Title { get; set; }
     
-    public string Description { get; set; } // Project description
+    public string Description { get; set; }
     
     public int CategoryId  { get; set; }
 
     public int UserId { get; set; }
     
-    public virtual Category Category { get; set; } // Project category
+    public virtual Category Category { get; set; }
 
     public virtual User User { get; set; }
 

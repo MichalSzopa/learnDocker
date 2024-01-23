@@ -2,12 +2,16 @@ namespace TodoApi.Database.Models;
 
 public class User
 {
-    public int Id { get; set; } // Primary key, auto-incremented
-    public string Login { get; set; } // Not null varchar
-    public string Name { get; set; } // Not null varchar
-    public string Password { get; set; } // Not null varchar
-    public string Email { get; set; } // Not null varchar
+    public int Id { get; set; }
 
+    public string Login { get; set; }
+
+    public string Name { get; set; }
+
+    public string Password { get; set; }
+
+    public string Email { get; set; }
+    
     public virtual ICollection<Category> Categories { get; set; }
 
     public virtual ICollection<Project> Projects { get; set; }
