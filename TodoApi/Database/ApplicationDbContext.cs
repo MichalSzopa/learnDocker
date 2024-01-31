@@ -28,7 +28,8 @@ public class ApplicationDbContext : DbContext
 
 			entity.HasOne(p => p.Category)
 				  .WithMany(c => c.Projects)
-				  .HasForeignKey(p => p.CategoryId);
+				  .HasForeignKey(p => p.CategoryId)
+				  .IsRequired(false);
 
 			entity.HasOne(p => p.User)
 				  .WithMany(u => u.Projects)
@@ -56,7 +57,8 @@ public class ApplicationDbContext : DbContext
 
 			entity.HasOne(t => t.Category)
 				  .WithMany(c => c.TodoTasks)
-				  .HasForeignKey(t => t.CategoryId);
+				  .HasForeignKey(t => t.CategoryId)
+				  .IsRequired(false);
 
 			entity.HasOne(t => t.User)
 				  .WithMany(u => u.TodoTasks)
@@ -64,11 +66,13 @@ public class ApplicationDbContext : DbContext
 
 			entity.HasOne(t => t.Project)
 				  .WithMany(p => p.TodoTasks)
-				  .HasForeignKey(t => t.ProjectId);
+				  .HasForeignKey(t => t.ProjectId)
+				  .IsRequired(false);
 
 			entity.HasOne(t => t.ParentTask)
 				  .WithMany(p => p.ChildTasks)
-				  .HasForeignKey(t => t.ParentId);
+				  .HasForeignKey(t => t.ParentId)
+				  .IsRequired(false);
 		});
 	}
 }

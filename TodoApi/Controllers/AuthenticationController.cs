@@ -27,7 +27,7 @@ public class AuthController : ControllerBase
 
             if (claims == null)
             {
-                return Ok(new { loggedin = false });
+                return Ok(new { loggedIn = false });
             }
 
             await HttpContext.SignInAsync(
@@ -44,7 +44,7 @@ public class AuthController : ControllerBase
         }
         catch (Exception)
         {
-            return Ok(new { loggedin = false });
+            return Ok(new { loggedIn = false });
         }
     }
 
@@ -66,6 +66,6 @@ public class AuthController : ControllerBase
     [HttpGet("login-test")]
     public ActionResult<object> LoginTest()
     {
-        return Ok(new { loggedin = true });
+        return Ok(new { loggedIn = true });
     }
 }

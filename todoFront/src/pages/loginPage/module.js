@@ -16,14 +16,19 @@ export default {
     actions: {
       async logIn({ commit }, data) {
         await loginService.login(data.username, data.password)
-          .then(response => {
+          .then(() => {
             commit('onLoggedIn');
-            console.log(response); //TODO
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
           });
       },
+      async checkIfLoggedIn({ commit }) {
+        const response = await loginService.checkIfLoggedIn();
+        if (response.loggedIn === true) {
+          commit('onLoggedIn');
+        }
+        else {
+          commit('onLoggedOut');
+        }
+      }
     },
     getters: {
       isLoggedIn: state => state.loggedIn

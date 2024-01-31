@@ -14,7 +14,6 @@
                 <button @click="login">Login</button>
             </div>
         </div>
-        <button @click="loginTest"> Login test</button>
     </div>
 </template>
 
@@ -35,23 +34,15 @@ export default {
     methods: {
         ...mapActions('login', ['logIn']),
         async login() {
-            try {
-                const data = {
-                    username: this.username,
-                    password: this.password
-                };
-                await this.logIn(data);
-                if (this.isLoggedIn) {
-                  this.$router.push('/categories');
-                }
-            }
-            catch {
-                console.log('cosik nieteges');
+            const data = {
+                username: this.username,
+                password: this.password
+            };
+            await this.logIn(data);
+            if (this.isLoggedIn) {
+                this.$router.push('/tasks');
             }
         },
-        async loginTest() {
-            console.log(this.isLoggedIn);
-        }
     }
 };
 </script>

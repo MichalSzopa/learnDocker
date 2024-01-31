@@ -7,9 +7,6 @@
             <template v-slot:append>
                 <v-btn variant="text" icon="mdi-pencil" @click="editCategory(item)"></v-btn>
             </template>
-
-
-            <v-list-item-title v-text="item.text"></v-list-item-title>
         </v-list-item>
     </v-list>
 </template>

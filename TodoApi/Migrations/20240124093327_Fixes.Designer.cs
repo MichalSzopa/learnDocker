@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TodoApi.Database;
 
@@ -10,9 +11,11 @@ using TodoApi.Database;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240124093327_Fixes")]
+    partial class Fixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
@@ -49,7 +52,7 @@ namespace TodoApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
@@ -79,6 +82,7 @@ namespace TodoApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreationDate")
@@ -101,6 +105,7 @@ namespace TodoApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("ProjectId")
+                        .IsRequired()
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Repetition")
@@ -177,7 +182,9 @@ namespace TodoApi.Migrations
                 {
                     b.HasOne("TodoApi.Database.Models.Category", "Category")
                         .WithMany("Projects")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TodoApi.Database.Models.User", "User")
                         .WithMany("Projects")
@@ -194,7 +201,9 @@ namespace TodoApi.Migrations
                 {
                     b.HasOne("TodoApi.Database.Models.Category", "Category")
                         .WithMany("TodoTasks")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TodoApi.Database.Models.TodoTask", "ParentTask")
                         .WithMany("ChildTasks")
@@ -202,7 +211,9 @@ namespace TodoApi.Migrations
 
                     b.HasOne("TodoApi.Database.Models.Project", "Project")
                         .WithMany("TodoTasks")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TodoApi.Database.Models.User", "User")
                         .WithMany("TodoTasks")

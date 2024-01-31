@@ -1,15 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LoginPage from "./pages/loginPage/LoginPage.vue";
 import CategoriesPage from "./pages/categoriesPage/CategoriesPage.vue";
 import AddCategoryPage from "./pages/categoriesPage/AddCategory.vue";
 import EditCategoryPage from "./pages/categoriesPage/EditCategory.vue";
+import TasksPage from "./pages/tasksPage/TasksPage.vue"
 
 const routes = [
-    {
-        name: "LoginPage",
-        component: LoginPage,
-        path: "/login",
-    },
     {
         name: "CategoriesPage",
         component: CategoriesPage,
@@ -24,6 +19,11 @@ const routes = [
         name: "EditCategoryPage",
         component: EditCategoryPage,
         path: "/edit-category",
+    },
+    {
+        name: "TasksPage",
+        component: TasksPage,
+        path: "/tasks",
     },
 ]
 

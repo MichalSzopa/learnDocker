@@ -7,14 +7,14 @@ namespace TodoApi.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class TaskController : ControllerBase
+public class ProjectsController : ControllerBase
 {
-    private readonly ITaskService taskService;
+    private readonly IProjectService projectService;
     private readonly IHeaderContextService headerContextService;
 
-    public TaskController(ITaskService taskService, IHeaderContextService headerContextService)
+    public ProjectsController(IProjectService projectService, IHeaderContextService headerContextService)
     {
-        this.taskService = taskService;
+        this.projectService = projectService;
         this.headerContextService = headerContextService;
     }
 
@@ -22,25 +22,25 @@ public class TaskController : ControllerBase
     public async Task<ActionResult<IEnumerable<TodoTask>>> Get()
     {
         var userId = headerContextService.GetUserId();
-        var tasks = await taskService.GetTasksForUser(userId);
+        var projects = await projectService.GetProjectsForUser(userId);
 
-        return Ok(tasks);
+        return Ok(projects);
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreateTask(CreateTaskModel model)
+    public async Task<IActionResult> CreateProject(CreateProjectModel model)
     {
         var userId = headerContextService.GetUserId();
-        await taskService.CreateNewTask(model, userId);
+        await projectService.CreateNewProject(model, userId);
 
         return Ok();
     }
 
     [HttpPost("edit")]
-    public async Task<IActionResult> EditTask(EditTaskModel model)
+    public async Task<IActionResult> EditProject(EditProjectModel model)
     {
         var userId = headerContextService.GetUserId();
-        await taskService.EditTask(model, userId);
+        await projectService.EditProject(model, userId);
 
         return Ok();
     }

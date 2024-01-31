@@ -19,13 +19,27 @@ export default {
             }
             return response.json();
           })
-          .then(data => {
-            // Handle the data from the POST request
-            console.log(data);
-          })
           .catch(error => {
-            // Handle errors
-            console.error('There was a problem with the fetch operation:', error);
+            console.error('There was a problem with login operation:', error);
           });
+    },
+    async checkIfLoggedIn() {
+      let loggedIn = false;
+      await fetch('http://localhost:5013/auth/login-test', {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+              },
+        }).then(async response => {
+            if (response.ok) {
+              const res = await response.json();
+              loggedIn = res;
+            }
+          })
+          .catch(() => {
+          });
+      return loggedIn;
     }
 }

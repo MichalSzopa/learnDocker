@@ -40,7 +40,6 @@ export default {
                 description: this.description,
                 color: this.color
             };
-            console.log('add category page');
             await this.createCategory(category);
             this.$router.push('/categories');
         },
