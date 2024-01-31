@@ -23,6 +23,8 @@ builder.Services.AddCors(options =>
         });
 });
 
+var exampleConfigValue = builder.Configuration["ExampleSetting"]; // TODO for configuration, e.g. service for sending emails
+
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IHeaderContextService, HeaderContextService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

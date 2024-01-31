@@ -3,7 +3,7 @@
         <v-form fast-fail @submit.prevent="submitForm">
             <v-text-field v-model="description" label="Description" :rules="descriptionRules"></v-text-field>
 
-            <v-text-field v-model="color" label="Color" :rules="colorRules"></v-text-field>
+            <v-text-field v-model="title" label="Title" :rules="titleRules"></v-text-field>
 
             <v-btn type="submit">Submit</v-btn>
             <v-btn @click="this.$emit('addingFinished')">Cancel</v-btn>
@@ -15,7 +15,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-    name: 'AddCategoryPage',
+    name: 'AddProject',
     data: () =>({
         description: '',
         descriptionRules: [
@@ -25,24 +25,24 @@ export default {
                 return 'Description must be at least 3 characters.'
             },
         ],
-        color: null,
-        colorRules: [
+        title: '',
+        titleRules: [
             value => {
-                if (!!value && value >= 0 && value <= 9) return true
+                if (value?.length >= 3) return true
 
-                return 'Color must be in range 0-9.'
+                return 'Title must be at least 3 characters.'
             },
         ],
     }),
     methods: {
-        ...mapActions('categories', ['createCategory']),
+        ...mapActions('projects', ['createProject']),
         async submitForm() {
-            const category = {
+            const project = {
                 description: this.description,
-                color: this.color
+                title: this.title
             };
-            await this.createCategory(category);
-            this.$emit('addingFinished');
+            await this.createProject(project);
+            this.$emit('addingFinished')
         },
     }
 }

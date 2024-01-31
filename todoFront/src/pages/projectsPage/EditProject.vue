@@ -1,11 +1,11 @@
 <template>
     <v-sheet width="300" class="mx-auto">
         <v-form fast-fail @submit.prevent="submitForm">
-            <v-text-field v-model="category.description" label="Description" :rules="descriptionRules"></v-text-field>
+            <v-text-field v-model="project.description" label="Description" :rules="descriptionRules"></v-text-field>
 
-            <v-text-field v-model="category.color" label="Color" :rules="colorRules"></v-text-field>
+            <v-text-field v-model="project.title" label="Title" :rules="titleRules"></v-text-field>
 
-            <v-btn type="submit">Submit</v-btn> 
+            <v-btn type="submit">Submit</v-btn>
             <v-btn @click="this.$emit('editingFinished')">Cancel</v-btn>
         </v-form>
     </v-sheet>
@@ -15,12 +15,12 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-    name: 'EditCategoryPage',
+    name: 'EditProject',
     data: () =>({
-        category: {
+        project: {
             id: null,
             description: null,
-            color: null,
+            title: null,
         },
         descriptionRules: [
             value => {
@@ -29,26 +29,26 @@ export default {
                 return 'Description must be at least 3 characters.'
             },
         ],
-        colorRules: [
+        titleRules: [
             value => {
-                if (!!value && value >= 0 && value <= 9) return true
+                if (value?.length >= 3) return true
 
-                return 'Color must be in range 0-9.'
+                return 'Title must be at least 3 characters.'
             },
         ],
     }),
     computed: {
-        ...mapGetters('categories', ['getEditedCategory']),
+        ...mapGetters('projects', ['getEditedProject']),
     },
     methods: {
-        ...mapActions('categories', ['editCategory']),
+        ...mapActions('projects', ['editProject']),
         async submitForm() {
-            await this.editCategory(this.category);
+            await this.editProject(this.project);
             this.$emit('editingFinished');
         },
     },
     async created() {
-        this.category = this.getEditedCategory;
+        this.project = this.getEditedProject;
     }
 }
 </script>

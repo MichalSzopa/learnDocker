@@ -29,7 +29,7 @@
             <v-list-item prepend-icon="mdi-account-group-outline" title="Categories" value="users" @click="onCategoriesClick"></v-list-item>
           </v-list>
         </v-navigation-drawer>
-        <v-main style="height: 250px"></v-main>
+        <v-main></v-main>
       </v-layout>
     </v-card>
   </template>
@@ -54,7 +54,7 @@
       },
       async onProjectsClick() {
         this.rail = true;
-        // this.$router.push('/projects');
+        this.$router.push('/projects');
       },
     }
   }
