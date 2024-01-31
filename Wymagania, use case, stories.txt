@@ -10,8 +10,9 @@ Po zalogowaniu użytkownik dostaje powiadomienia o nadchodzących zadaniach, cza
 Możliwość wyświetlenia kalendarza z zadaniami
 Język polski oraz angielski
 Użytkownik niezalogowany może utworzyć konto, lub spróbować odzyskać hasło podając email
-Reszta akcji dostępna dla głównego użytkownika
+Reszta akcji dostępna dla zalogowanego użytkownika
 Możliwość dodania podzadania
 Zadania można dodać do większego projektu, który ma datę ukończenia, nazwę, opis
+Powiadomienia także mailowe, jeśli użytkownik zaznaczy taką opcję
 
 Stack technologiczny: backend w .net 7 z entity framework, baza danych docelowo postgresql, frontend jako aplikacja webowa w vue.js

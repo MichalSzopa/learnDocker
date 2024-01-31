@@ -1,0 +1,20 @@
+Frontend grupy i okienka:
+
+Kategorie:
+-onko zbiorcze kategorii systemowych i własnych
+-okno dodawania i edycji kategorii
+
+Projekty:
+-okno zbiorcze projektów
+-okno dodawania i edycji projektów
+-okno szczegółów projektu z widokiem głównych zadań
+-okno szczegółów poszczególnego zadania wraz z podzadaniami
+
+Zadania:
+-okno widoku zadań z widokiem dziennym, tygodniowym i miesięcznym
+-okno szczegółów zadania wraz z podzadaniami
+-okno dodawania i edycji zadania
+
+Navbar: kliki do głównych widoków kategorii, zadań i projektów, wylogowanie, zarządzanie użytkownikiem np zmiana hasła
+
+Topbar: powitanie użytkownika, ilość zadań do wykonania dziś, osobno zadania pilne
