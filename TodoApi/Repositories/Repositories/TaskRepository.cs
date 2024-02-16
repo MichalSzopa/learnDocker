@@ -43,4 +43,10 @@ public class TaskRepository : ITaskRepository
                             .Include(t => t.ChildTasks)
                             .ToArrayAsync();
     }
+
+    public async Task<IEnumerable<TodoTask>> GetTasksToNotifyForUsers()
+    {
+        return await context.TodoTasks.Where(t => t.EventDate >= DateTime.Now + TimeSpan.FromMinutes(15)).ToListAsync();
+
+    }
 }

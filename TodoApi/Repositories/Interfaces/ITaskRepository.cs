@@ -9,4 +9,6 @@ public interface ITaskRepository
     Task<TodoTask[]> GetTasksForUser(int userId);
 
     Task<TodoTask[]> GetTasksForProject(int projectId);
+
+    Task<IEnumerable<TodoTask>> GetTasksToNotifyForUsers();
 }

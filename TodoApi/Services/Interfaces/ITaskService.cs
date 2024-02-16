@@ -11,4 +11,6 @@ public interface ITaskService
     Task ChangeTaskStatus(ChangeTaskStatusModel model, int userId);
 
     Task<TodoTask> GetTaskById(int taskId);
+
+    Task SendNotifications();
 }

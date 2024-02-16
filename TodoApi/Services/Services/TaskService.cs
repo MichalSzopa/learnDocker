@@ -68,4 +68,13 @@ public class TaskService : ITaskService
     {
         return await unitOfWork.TaskRepository.GetTasksForUser(userId);
     }
+
+    public async Task SendNotifications()
+    {
+        var tasks = await unitOfWork.TaskRepository.GetTasksToNotifyForUsers();
+        if(tasks == null)
+        {
+            return;
+        }
+    }
 }
