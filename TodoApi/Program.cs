@@ -2,6 +2,7 @@ using TodoApi.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.CookiePolicy;
 using TodoApi.Services.Services;
+using TodoApi.Shared.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,7 +25,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-var exampleConfigValue = builder.Configuration["ExampleSetting"]; // TODO for configuration, e.g. service for sending emails
+builder.Services.Configure<SmtpValuesModel>(options => builder.Configuration.GetSection("SmtpValues").Bind(options));
 
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IHeaderContextService, HeaderContextService>();

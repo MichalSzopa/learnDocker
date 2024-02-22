@@ -31,6 +31,8 @@ public class TodoTask
     public int? ParentId { get; set; }
     
     public int? ProjectId { get; set; }
+
+    public bool NotificationEmailSent { get; set; }
     
     public virtual User User { get; set; }
     

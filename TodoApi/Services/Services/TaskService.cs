@@ -1,12 +1,18 @@
+using Microsoft.Extensions.Options;
+using System.Net;
+using System.Net.Mail;
 using TodoApi.Database.Models;
+using TodoApi.Shared.Models;
 
 public class TaskService : ITaskService
 {
     private readonly UnitOfWork unitOfWork;
+    private readonly SmtpValuesModel smtpValues;
 
-    public TaskService(UnitOfWork unitOfWork)
+    public TaskService(UnitOfWork unitOfWork, IOptions<SmtpValuesModel> smtpValues)
     {
         this.unitOfWork = unitOfWork;
+        this.smtpValues = smtpValues.Value;
     }
 
     public async Task ChangeTaskStatus(ChangeTaskStatusModel model, int userId)
@@ -34,7 +40,8 @@ public class TaskService : ITaskService
             Version = 1,
             ParentId = model.ParentId,
             ProjectId = model.ProjectId,
-        };
+            NotificationEmailSent = false,
+		};
 
         await unitOfWork.TaskRepository.CreateTask(task);
     }
@@ -72,9 +79,43 @@ public class TaskService : ITaskService
     public async Task SendNotifications()
     {
         var tasks = await unitOfWork.TaskRepository.GetTasksToNotifyForUsers();
-        if(tasks == null)
+        if (tasks == null)
         {
             return;
         }
+        sendEmailsForTasks(tasks);
+        foreach(var task in tasks)
+        {
+            task.NotificationEmailSent = true;
+		}
+        await unitOfWork.SaveChanges();
     }
+
+    private void sendEmailsForTasks(IEnumerable<TodoTask> tasks)
+    {
+		var groups = tasks.GroupBy(t => t.UserId);
+
+        foreach (var group in groups)
+        {
+            var subject = "Unfinished tasks notification";
+            var message = "information about tasks"; // TODO prepare a pretty message
+            var receiverEmail = group.FirstOrDefault().User.Email;
+
+            sendEmail(receiverEmail, subject, message); 
+        }
+    }
+
+    private void sendEmail(string receiverEmail, string subject, string message)
+    {
+		using var client = new SmtpClient(smtpValues.ServerAddress, smtpValues.ServerPort)
+		{
+			EnableSsl = true,
+			Credentials = new NetworkCredential(smtpValues.SenderEmail, smtpValues.AppPassword)
+		};
+
+        client.Send(new MailMessage(from: smtpValues.SenderEmail,
+                                                    to: receiverEmail,
+                                                    subject,
+                                                    message));
+	}
 }

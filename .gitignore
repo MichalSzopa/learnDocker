@@ -5,3 +5,4 @@ TodoApi/obj
 TodoApi/.config
 TodoApi/.vs
 databaza.db
+TodoApi/appsettings.Development.json
