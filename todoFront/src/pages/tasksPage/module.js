@@ -3,7 +3,7 @@ import tasksService from "./service";
 export default {
   namespaced: true,
   state: {
-    tasks: null
+    tasks: null,
   },
   mutations: {
     setTasks(state, newTasks) {

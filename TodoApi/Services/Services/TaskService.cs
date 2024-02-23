@@ -30,7 +30,7 @@ public class TaskService : ITaskService
             IsRecurring = model.IsRecurring,
             CreationDate = DateTime.Now,
             EventDate = model.EventDate,
-            Time = model.Time,
+            Time = TimeSpan.Parse(model.Time),
             Title = model.Title,
             Description = model.Description,
             CategoryId = model.CategoryId,
@@ -41,7 +41,7 @@ public class TaskService : ITaskService
             ParentId = model.ParentId,
             ProjectId = model.ProjectId,
             NotificationEmailSent = false,
-		};
+        };
 
         await unitOfWork.TaskRepository.CreateTask(task);
     }
@@ -84,16 +84,16 @@ public class TaskService : ITaskService
             return;
         }
         sendEmailsForTasks(tasks);
-        foreach(var task in tasks)
+        foreach (var task in tasks)
         {
             task.NotificationEmailSent = true;
-		}
+        }
         await unitOfWork.SaveChanges();
     }
 
     private void sendEmailsForTasks(IEnumerable<TodoTask> tasks)
     {
-		var groups = tasks.GroupBy(t => t.UserId);
+        var groups = tasks.GroupBy(t => t.UserId);
 
         foreach (var group in groups)
         {
@@ -101,21 +101,21 @@ public class TaskService : ITaskService
             var message = "information about tasks"; // TODO prepare a pretty message
             var receiverEmail = group.FirstOrDefault().User.Email;
 
-            sendEmail(receiverEmail, subject, message); 
+            sendEmail(receiverEmail, subject, message);
         }
     }
 
     private void sendEmail(string receiverEmail, string subject, string message)
     {
-		using var client = new SmtpClient(smtpValues.ServerAddress, smtpValues.ServerPort)
-		{
-			EnableSsl = true,
-			Credentials = new NetworkCredential(smtpValues.SenderEmail, smtpValues.AppPassword)
-		};
+        using var client = new SmtpClient(smtpValues.ServerAddress, smtpValues.ServerPort)
+        {
+            EnableSsl = true,
+            Credentials = new NetworkCredential(smtpValues.SenderEmail, smtpValues.AppPassword)
+        };
 
         client.Send(new MailMessage(from: smtpValues.SenderEmail,
                                                     to: receiverEmail,
                                                     subject,
                                                     message));
-	}
+    }
 }
