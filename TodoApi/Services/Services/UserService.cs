@@ -1,51 +1,41 @@
 using System.Security.Claims;
+using Database;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
-using TodoApi.Database;
-using TodoApi.Database.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Services.Interfaces;
 
-public class UserService : IUserService
+namespace Services.Services;
+
+public class UserService(IServiceScopeFactory scopeFactory, IHeaderContextService headerContextService)
+    : IUserService
 {
-    private readonly IServiceScopeFactory _scopeFactory;
-    private readonly IHeaderContextService _headerContextService;
-
-    public UserService(IServiceScopeFactory scopeFactory, IHeaderContextService headerContextService)
-        {
-            _scopeFactory = scopeFactory;
-            _headerContextService = headerContextService;
-        }
-
     public async Task<IEnumerable<User>> GetUsers()
     {
-        List<User> users = new List<User>();
+        using var scope = scopeFactory.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            using (var scope = _scopeFactory.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-                users = await db.Users.ToListAsync();
-            }
-
-            return users;
+        return await db.Users.ToListAsync();
     }
 
     public async Task<List<Claim>> Login(string username, string password)
     {
-        using (var scope = _scopeFactory.CreateScope())
+        using (var scope = scopeFactory.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var user = await db.Users.Where(u => u.Login == username && u.Password == password).FirstOrDefaultAsync();
+            if (user == null)
             {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                var user = await db.Users.Where(u => u.Login == username && u.Password == password).FirstOrDefaultAsync();
-                if (user == null)
-                {
-                    return null;
-                }
-
-                var claims = new List<Claim>
-                    {
-                        new Claim ( ClaimTypes.NameIdentifier, user.Id.ToString()),
-                        new Claim ( ClaimTypes.Name, username),
-                    };
-                return claims;
+                return null;
             }
+
+            var claims = new List<Claim>
+            {
+                new Claim ( ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim ( ClaimTypes.Name, username),
+            };
+            return claims;
+        }
     }
 
     public Task<object> Logout()
@@ -55,7 +45,7 @@ public class UserService : IUserService
 
     public async Task<User> ValidateUserAsync(string username, string password)
     {
-        using var context = new ApplicationDbContext();
+        await using var context = new ApplicationDbContext();
         return await context.Users.Where(u => u.Name == "SYSTEM").FirstOrDefaultAsync(); // TODO auth
     }
 }

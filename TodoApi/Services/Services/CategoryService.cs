@@ -1,14 +1,11 @@
-using TodoApi.Database.Models;
+using Database.Models;
+using Repositories.Repositories;
+using Services.Interfaces;
 
-public class CategoryService : ICategoryService
+namespace Services.Services;
+
+public class CategoryService(UnitOfWork unitOfWork) : ICategoryService
 {
-    private readonly UnitOfWork unitOfWork;
-
-    public CategoryService(UnitOfWork unitOfWork)
-    {
-        this.unitOfWork = unitOfWork;
-    }
-
     public async Task CreateNewCategoryForUser(CreateCategoryModel model, int userId)
     {
         var category = new Category 

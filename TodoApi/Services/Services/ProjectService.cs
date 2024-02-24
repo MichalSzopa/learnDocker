@@ -1,14 +1,11 @@
-using TodoApi.Database.Models;
+using Database.Models;
+using Repositories.Repositories;
+using Services.Interfaces;
 
-public class ProjectService : IProjectService
+namespace Services.Services;
+
+public class ProjectService(UnitOfWork unitOfWork) : IProjectService
 {
-    private readonly UnitOfWork unitOfWork;
-
-    public ProjectService(UnitOfWork unitOfWork)
-    {
-        this.unitOfWork = unitOfWork;
-    }
-
     public async Task CreateNewProject(CreateProjectModel model, int userId)
     {
         var project = new Project 

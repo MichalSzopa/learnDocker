@@ -1,6 +1,8 @@
-using TodoApi.Database.Models;
+using Database.Models;
 
-public interface ITaskRepository
+namespace Repositories.Interfaces;
+
+public interface ITaskRepository : IBaseRepository<TodoTask>
 {
     Task CreateTask(TodoTask task);
 

@@ -1,17 +1,13 @@
+using Database;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
-using TodoApi.Database;
-using TodoApi.Database.Models;
+using Repositories.Interfaces;
 
-public class CategoryRepository : ICategoryRepository
+namespace Repositories.Repositories;
+
+public class CategoryRepository(ApplicationDbContext context) : ICategoryRepository
 {
-    private readonly ApplicationDbContext context;
-
-    public CategoryRepository(ApplicationDbContext context)
-    {
-        this.context = context;
-    }
-
-    public async Task CreateCategory(Category category)
+    public async Task CreateCategory(Category category) // TODO remove
     {
         await context.Categories.AddAsync(category);
         await context.SaveChangesAsync();
@@ -32,5 +28,11 @@ public class CategoryRepository : ICategoryRepository
     public async Task<Category[]> GetCategoriesForUser(int userId)
     {
         return await context.Categories.Where(c => c.IsPredefined == true || c.UserId == userId).ToArrayAsync();
+    }
+
+    public async Task Add(Category entity)
+    {
+        await context.Categories.AddAsync(entity);
+        await context.SaveChangesAsync();
     }
 }

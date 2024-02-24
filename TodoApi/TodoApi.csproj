@@ -22,4 +22,51 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Shared\**" />
+    <Compile Remove="Services\**" />
+    <Compile Remove="Repositories\**" />
+    <Compile Remove="Database\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Shared\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="Repositories\**" />
+    <EmbeddedResource Remove="Database\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Shared\**" />
+    <Content Remove="Services\**" />
+    <Content Remove="Repositories\**" />
+    <Content Remove="Database\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\**" />
+    <None Remove="Services\**" />
+    <None Remove="Repositories\**" />
+    <None Remove="Database\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Shared\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Shared\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="Shared\obj\Shared.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Services\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Services\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="Services\obj\Services.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Repositories\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Repositories\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="Repositories\obj\Repositories.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Database\obj\Database.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Database\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Database\obj\project.packagespec.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="Services\Services.csproj" />
+  </ItemGroup>
+
 </Project>

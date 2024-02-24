@@ -1,5 +1,7 @@
-using TodoApi.Database.Models;
 using System.Security.Claims;
+using Database.Models;
+
+namespace Services.Interfaces;
 
 public interface IUserService
 {

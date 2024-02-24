@@ -6,3 +6,12 @@ TodoApi/.config
 TodoApi/.vs
 databaza.db
 TodoApi/appsettings.Development.json
+TodoApi/.idea
+TodoApi/Database/bin
+TodoApi/Database/obj
+TodoApi/Repositories/bin
+TodoApi/Repositories/obj
+TodoApi/Services/bin
+TodoApi/Services/obj
+TodoApi/Shared/bin
+TodoApi/Shared/obj

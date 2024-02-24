@@ -1,4 +1,6 @@
-using TodoApi.Database.Models;
+using Database.Models;
+
+namespace Services.Interfaces;
 
 public interface IProjectService
 {

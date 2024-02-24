@@ -1,24 +1,16 @@
+using Database.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using TodoApi.Database.Models;
+using Services.Interfaces;
 
 namespace TodoApi.Controllers;
 
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class CategoriesController : ControllerBase
+public class CategoriesController(ICategoryService categoryService, IHeaderContextService headerContextService)
+    : ControllerBase
 {
-
-    private readonly ICategoryService categoryService;
-    private readonly IHeaderContextService headerContextService;
-
-    public CategoriesController(ICategoryService categoryService, IHeaderContextService headerContextService)
-    {
-        this.categoryService = categoryService;
-        this.headerContextService = headerContextService;
-    }
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Category>>> Get()
     {

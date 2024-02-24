@@ -4,7 +4,7 @@
 # Build an docker image: docker buildx build -t learn-docker-backend .
 
 # Use the official .NET SDK image as the build image
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copy the .csproj and restore as distinct layers
@@ -18,7 +18,7 @@ COPY . .
 RUN dotnet publish -c Release -o out
 
 # Use the official .NET runtime image as the runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/out ./
 

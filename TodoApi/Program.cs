@@ -1,8 +1,10 @@
-using TodoApi.Database;
+using Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.CookiePolicy;
-using TodoApi.Services.Services;
-using TodoApi.Shared.Models;
+using Repositories.Interfaces;
+using Repositories.Repositories;
+using Services.Interfaces;
+using Services.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,10 +31,12 @@ builder.Services.Configure<SmtpValuesModel>(options => builder.Configuration.Get
 
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IHeaderContextService, HeaderContextService>();
+
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<UnitOfWork>();
+
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();

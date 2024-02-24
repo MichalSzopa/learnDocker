@@ -1,7 +1,7 @@
-namespace TodoApi.Database;
-
-using Models;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
+
+namespace Database;
 
 public class ApplicationDbContext : DbContext
 {

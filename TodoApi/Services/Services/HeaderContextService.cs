@@ -1,27 +1,24 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Services.Interfaces;
 
-public class HeaderContextService : IHeaderContextService
+namespace Services.Services;
+
+public class HeaderContextService(IHttpContextAccessor httpContextAccessor) : IHeaderContextService
+{
+    public HttpContext? GetHttpContext()
     {
-        protected readonly IHttpContextAccessor _httpContextAccessor;
-
-        public HeaderContextService(IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
-
-        public HttpContext? GetHttpContext()
-        {
-            return _httpContextAccessor.HttpContext;
-        }
-
-        private ClaimsPrincipal GetUser()
-        {
-            return GetHttpContext()!.User;
-        }
-
-        public int GetUserId()
-        {
-            var claim = GetUser().FindFirstValue(ClaimTypes.NameIdentifier);
-            return int.Parse(claim);
-        }
+        return httpContextAccessor.HttpContext;
     }
+
+
+    public int GetUserId()
+    {
+        return int.Parse(GetUser().FindFirst(ClaimTypes.NameIdentifier)?.Value);
+    }
+    
+    private ClaimsPrincipal GetUser()
+    {
+        return GetHttpContext()!.User;
+    }
+}

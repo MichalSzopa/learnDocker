@@ -1,22 +1,21 @@
-using TodoApi.Database;
+using Database;
+using Database.Models;
+using Repositories.Interfaces;
 
-public class UnitOfWork: IUnitOfWork
+namespace Repositories.Repositories;
+
+public class UnitOfWork(
+    ApplicationDbContext context,
+    ICategoryRepository categoryRepository,
+    ITaskRepository taskRepository,
+    IProjectRepository projectRepository)
+    : IUnitOfWork
 {
-    private readonly ApplicationDbContext context;
-    public readonly ICategoryRepository CategoryRepository;
-    public readonly ITaskRepository TaskRepository;
-    public readonly IProjectRepository ProjectRepository;
+    public ICategoryRepository CategoryRepository => categoryRepository;
+    
+    public IProjectRepository ProjectRepository => projectRepository;
 
-    public UnitOfWork(ApplicationDbContext context,
-                      ICategoryRepository categoryRepository,
-                      ITaskRepository taskRepository,
-                      IProjectRepository projectRepository)
-    {
-        this.context = context;
-        this.CategoryRepository = categoryRepository;
-        this.TaskRepository = taskRepository;
-        this.ProjectRepository = projectRepository;
-    }
+    public ITaskRepository TaskRepository => taskRepository;
 
     public async Task SaveChanges()
     {

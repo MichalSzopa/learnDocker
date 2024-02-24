@@ -1,19 +1,16 @@
-using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Mail;
-using TodoApi.Database.Models;
-using TodoApi.Shared.Models;
+using Database.Models;
+using Microsoft.Extensions.Options;
+using Repositories.Repositories;
+using Services.Interfaces;
 
-public class TaskService : ITaskService
+namespace Services.Services;
+
+public class TaskService(UnitOfWork unitOfWork, IOptions<SmtpValuesModel> smtpValues)
+    : ITaskService
 {
-    private readonly UnitOfWork unitOfWork;
-    private readonly SmtpValuesModel smtpValues;
-
-    public TaskService(UnitOfWork unitOfWork, IOptions<SmtpValuesModel> smtpValues)
-    {
-        this.unitOfWork = unitOfWork;
-        this.smtpValues = smtpValues.Value;
-    }
+    private readonly SmtpValuesModel smtpValues = smtpValues.Value;
 
     public async Task ChangeTaskStatus(ChangeTaskStatusModel model, int userId)
     {
@@ -30,7 +27,7 @@ public class TaskService : ITaskService
             IsRecurring = model.IsRecurring,
             CreationDate = DateTime.Now,
             EventDate = model.EventDate,
-            Time = TimeSpan.Parse(model.Time),
+            Time = TimeSpan.Parse(model.Time ?? "00:00"),
             Title = model.Title,
             Description = model.Description,
             CategoryId = model.CategoryId,
@@ -114,8 +111,8 @@ public class TaskService : ITaskService
         };
 
         client.Send(new MailMessage(from: smtpValues.SenderEmail,
-                                                    to: receiverEmail,
-                                                    subject,
-                                                    message));
+            to: receiverEmail,
+            subject,
+            message));
     }
 }

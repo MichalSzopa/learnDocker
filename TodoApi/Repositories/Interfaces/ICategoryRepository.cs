@@ -1,6 +1,8 @@
-using TodoApi.Database.Models;
+using Database.Models;
 
-public interface ICategoryRepository
+namespace Repositories.Interfaces;
+
+public interface ICategoryRepository : IBaseRepository<Category>
 {
     Task CreateCategory(Category category);
 

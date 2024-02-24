@@ -1,6 +1,8 @@
-using TodoApi.Database.Models;
+using Database.Models;
 
-public interface IProjectRepository
+namespace Repositories.Interfaces;
+
+public interface IProjectRepository : IBaseRepository<Project>
 {
     Task CreateProject(Project task);
 

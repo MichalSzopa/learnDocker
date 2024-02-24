@@ -1,4 +1,4 @@
-namespace TodoApi.Database.Models;
+namespace Database.Models;
 
 public class Category
 {
